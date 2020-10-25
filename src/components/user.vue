@@ -2,7 +2,11 @@
     <div>
         这是User组件
         <h3>用户列表页</h3>
-        <table style="border: solid black 2px">
+        <div v-if="is_show">
+            空空如也
+        </div>
+        <div v-else>
+            <table style="border: solid black 2px">
             <tr style="border: solid black 2px">
                 <td>ID</td>
                 <td>姓名</td>
@@ -18,6 +22,7 @@
                 <td> <a href="javascript:;" @click="del_user(index)">删除|</a> <router-link :to="`/detail/${user.id}/${user.username}/${user.bir}/${user.content}`">查看用户详情</router-link></td>
             </tr>
         </table>
+        </div>
         <br>
         用户名: <input type="text" v-model="username"><br>
         生日&nbsp&nbsp : <input type="text" v-model="bir"><br>
@@ -42,6 +47,7 @@
                 bir:"",
                 content:"",
                 id : 1,
+                is_show: localStorage.users ? 0 : 1
             }
         },
         methods:{
@@ -68,6 +74,7 @@
 
             },
             del_all() {
+                this.is_show = true;
                 this.users = [];
                 localStorage.clear();
             }
